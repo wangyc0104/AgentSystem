@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.keywords.KeywordsMapper">
+
+	<!-- 
+	public int addKeywords(Keywords keywords);
+	public int modifyKeywords(Keywords keywords);
+	public int deleteKeywords(Keywords keywords);
+	public List<Keywords> getList(Keywords keywords);
+	public List<Keywords> getKeywordsBySearch(Keywords keywords);
+	public int count(Keywords keywords);
+	public Keywords getKeywordsById(Keywords keywords);
+	public Keywords getKeywordsByKeyword(Keywords keywords);
+	-->
+
+	<insert id="addKeywords" parameterType="org.agent.pojo.Keywords">
+		insert into as_keywords(keywords,agentId,agentName,customId,
+								customName,preRegFrozenMoney,price,productType,
+								serviceYears,openApp,appUserName,appPassword,
+								loginUrl,iosDownloadUrl,androidDownloadUrl,codeIosUrl,
+								codeAndroidUrl,preRegDatetime,preRegPassDatetime,regDatetime,
+								regPassDatetime,isPass,checkStatus,isUse)
+		values(#{keywords},#{agentId},#{agentName},#{customId},
+			   #{customName},#{preRegFrozenMoney},#{price},#{productType},
+			   #{serviceYears},#{openApp},#{appUserName},#{appPassword},
+			   #{loginUrl},#{iosDownloadUrl},#{androidDownloadUrl},#{codeIosUrl},
+			   #{codeAndroidUrl},#{preRegDatetime},#{preRegPassDatetime},#{regDatetime},
+			   #{regPassDatetime},#{isPass},#{checkStatus},#{isUse})
+		<selectKey keyProperty="id" resultType="int">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="modifyKeywords" parameterType="org.agent.pojo.Keywords">
+		update as_keywords
+		<set>
+			<if test="keywords!=null">keywords=#{keywords},</if>
+			<if test="agentId!=null">agentId=#{agentId},</if>
+			<if test="agentName!=null">agentName=#{agentName},</if>
+			<if test="customId!=null">customId=#{customId},</if>
+			<if test="customName!=null">customName=#{customName},</if>
+			<if test="preRegFrozenMoney!=null">preRegFrozenMoney=#{preRegFrozenMoney},</if>
+			<if test="price!=null">price=#{price},</if>
+			<if test="productType!=null">productType=#{productType},</if>
+			<if test="serviceYears!=null">serviceYears=#{serviceYears},</if>
+			<if test="openApp!=null">openApp=#{openApp},</if>
+			<if test="appUserName!=null">appUserName=#{appUserName},</if>
+			<if test="appPassword!=null">appPassword=#{appPassword},</if>
+			<if test="loginUrl!=null">loginUrl=#{loginUrl},</if>
+			<if test="iosDownloadUrl!=null">iosDownloadUrl=#{iosDownloadUrl},</if>
+			<if test="androidDownloadUrl!=null">androidDownloadUrl=#{androidDownloadUrl},</if>
+			<if test="codeIosUrl!=null">codeIosUrl=#{codeIosUrl},</if>
+			<if test="codeAndroidUrl!=null">codeAndroidUrl=#{codeAndroidUrl},</if>
+			<if test="preRegDatetime!=null">preRegDatetime=#{preRegDatetime},</if>
+			<if test="preRegPassDatetime!=null">preRegPassDatetime=#{preRegPassDatetime},</if>
+			<if test="regDatetime!=null">regDatetime=#{regDatetime},</if>
+			<if test="regPassDatetime!=null">regPassDatetime=#{regPassDatetime},</if>
+			<if test="isPass!=null">isPass=#{isPass},</if>
+			<if test="checkStatus!=null">checkStatus=#{checkStatus},</if>
+			<if test="isUse!=null">isUse=#{isUse}</if>
+		</set>
+			where id=#{id}
+	</update>
+	
+	<delete id="deleteKeywords" parameterType="org.agent.pojo.Keywords">
+		delete from as_keywords where id=#{id}
+	</delete>
+
+	<select id="getList" parameterType="org.agent.pojo.Keywords" resultType="org.agent.pojo.Keywords">
+		select * from as_keywords
+	</select>
+
+	<select id="getKeywordsBySearch" parameterType="org.agent.pojo.Keywords" resultType="org.agent.pojo.Keywords">
+		select * from as_keywords
+		<where>
+			<if test="agentId!=null">and agentId=#{agentId}</if>
+			<if test="searchStr!=null">and keywords like #{searchStr}</if>
+		</where>
+		order by id desc
+		<if test="startNum!=null and pageSize!=null">
+			limit #{startNum}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="count" parameterType="org.agent.pojo.Keywords" resultType="int">
+		select count(1) from as_keywords
+		<where>
+			<if test="agentId!=null">and agentId=#{agentId}</if>
+			<if test="searchStr!=null">and keywords like #{searchStr}</if>
+		</where>
+	</select>
+
+	<select id="getKeywordsById" parameterType="org.agent.pojo.Keywords" resultType="org.agent.pojo.Keywords">
+		select * from as_keywords where id=#{id}
+	</select>
+
+	<select id="getKeywordsByKeyword" parameterType="org.agent.pojo.Keywords" resultType="org.agent.pojo.Keywords">
+		select * from as_keywords where keywords=#{keywords} and checkStatus!=3
+	</select>
+	
+</mapper>

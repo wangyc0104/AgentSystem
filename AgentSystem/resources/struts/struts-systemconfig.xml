@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="systemconfig" namespace="/" extends="admin">
+		<action name="caiwutype" class="org.agent.action.SystemConfigAction" method="caiwuType">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="servicetype" class="org.agent.action.SystemConfigAction" method="serviceType">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="serviceyears" class="org.agent.action.SystemConfigAction" method="serviceYears">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="appurl" class="org.agent.action.SystemConfigAction" method="appUrl">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="customtype" class="org.agent.action.SystemConfigAction" method="customType">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="cardtype" class="org.agent.action.SystemConfigAction" method="cardType">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="youhuitype" class="org.agent.action.SystemConfigAction" method="youhuiType">
+			<result>/WEB-INF/pages/systemconfig.jsp</result>
+		</action>
+		<action name="addconfig" class="org.agent.action.SystemConfigAction" method="addConfig"></action>
+		<action name="deleteconfig" class="org.agent.action.SystemConfigAction" method="deleteConfig"></action>
+		<action name="modifyconfig" class="org.agent.action.SystemConfigAction" method="modifyConfig"></action>
+	</package>
+</struts>

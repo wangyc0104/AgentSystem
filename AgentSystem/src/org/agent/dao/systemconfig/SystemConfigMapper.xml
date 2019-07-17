@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.systemconfig.SystemConfigMapper">
+	<select id="getSystemConfigs" parameterType="org.agent.pojo.SystemConfig" resultType="org.agent.pojo.SystemConfig">
+		select * from as_systemconfig
+		<where>
+			<if test="isStart!=null">
+				and isStart=#{isStart}
+			</if>
+			<if test="configType!=null">
+				and configType=#{configType}
+			</if>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+		</where>
+	</select>	
+	<select id="getSystemConfigsIsStart" parameterType="org.agent.pojo.SystemConfig" resultType="org.agent.pojo.SystemConfig">
+		select * from as_systemconfig where isStart=1
+		<if test="configType!=null">
+			and configType=#{configType}
+		</if>
+		<if test="id!=null">
+			and id=#{id}
+		</if>
+	</select>
+	
+	<!-- 增加 -->
+	<insert id="addSystemConfig" parameterType="org.agent.pojo.SystemConfig">
+		insert into as_systemconfig(configType, configTypeName, configTypeValue, configValue, isStart)
+		values(#{configType}, #{configTypeName}, #{configTypeValue}, #{configValue}, #{isStart})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="modifySystemConfig" parameterType="org.agent.pojo.SystemConfig">
+		update as_systemconfig
+		<set>
+			<if test="configType!=null">configType=#{configType},</if>
+			<if test="configTypeName!=null">configTypeName=#{configTypeName},</if>
+			<if test="configTypeValue!=null">configTypeValue=#{configTypeValue},</if>
+			<if test="configValue!=null">configValue=#{configValue},</if>
+			<if test="isStart!=null">isStart=#{isStart}</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- 判断是否重复 -->
+	<select id="isPeatConfig" parameterType="org.agent.pojo.SystemConfig" resultType="int">
+		select count(*) from as_systemconfig
+		<where>
+			<if test="id!=null">and id=#{id}</if>
+			<if test="configType!=null">and configType=#{configType}</if>
+			<if test="configTypeName!=null">and configTypeName=#{configTypeName}</if>
+		</where>
+	</select>
+	
+	<!-- 删除-->
+	<delete id="deleteSystemConfig" parameterType="org.agent.pojo.SystemConfig">
+		delete from as_systemconfig where id=#{id}
+	</delete>
+	
+	<!-- 某一级下的最大的二级编号 -->
+	<select id="maxTypeValueByType" parameterType="org.agent.pojo.SystemConfig" resultType="int">
+		select max(configTypeValue) from as_systemconfig where configType=#{type}
+	</select>
+</mapper>

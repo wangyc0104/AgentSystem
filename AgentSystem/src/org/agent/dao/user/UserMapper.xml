@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.user.UserMapper">
+
+	<resultMap type="org.agent.pojo.User" id="searchUserResult">
+		<result property="id" column="id"/>
+		<result property="userCode" column="userCode"/>
+		<result property="userPassword" column="userPassword"/>
+	</resultMap>
+	
+	<resultMap type="org.agent.pojo.User" id="userList">
+		<result property="id" column="id"/>
+		<result property="userCode" column="userCode"/>
+		<result property="userPassword" column="userPassword"/>
+		<result property="creationTime" column="creationTime"/>
+		<result property="lastLoginTime" column="lastLoginTime"/>
+		<result property="createdBy" column="createdBy"/>
+		<result property="lastUpdateTime" column="lastUpdateTime"/>
+		<result property="isStart" column="isStart"/>
+		<result property="roleId" column="roleId"/>
+		<result property="roleName" column="roleName"/>
+	</resultMap>
+	
+	<select id="getUserList" parameterType="org.agent.pojo.User" resultMap="userList">
+		select u.*, r.roleName from as_user u, as_role r 
+		where u.roleId=r.id
+		<if test="userName!=null">
+			and u.userName like CONCAT('%',#{userName},'%')
+		</if>
+		<if test="userCode!=null">
+			and u.userCode like CONCAT('%',#{userCode},'%')
+		</if>
+		<if test="roleId!=null">
+			and u.roleId=#{roleId}
+		</if>
+		<if test="isStart!=null">
+			and u.isStart=#{isStart}
+		</if>
+		<if test="startNum!=null and pageSize!=null">
+			limit #{startNum}, #{pageSize}
+		</if>
+	</select>
+	
+	<select id="getUser" parameterType="org.agent.pojo.User" resultType="org.agent.pojo.User">
+		select * from as_user
+		<where>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+			<if test="userCode!=null">
+				and userCode=#{userCode}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getLoginUser" parameterType="org.agent.pojo.User" resultType="org.agent.pojo.User">
+		select * from as_user where userCode=#{userCode} and userPassword=#{userPassword}
+	</select>
+	
+	<insert id="addUser" parameterType="org.agent.pojo.User">
+		insert into as_user(userCode, userName, userPassword, creationTime, lastLoginTime, createdBy, lastUpdateTime, isStart, roleId)
+		values(#{userCode}, #{userName}, #{userPassword}, #{creationTime}, #{lastLoginTime}, #{createdBy}, #{lastUpdateTime}, #{isStart}, #{roleId})
+		<selectKey keyProperty="id" resultType="int">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="modifyUser" parameterType="org.agent.pojo.User">
+		update as_user
+		<set>
+			<if test="userCode!=null">userCode=#{userCode},</if>
+			<if test="userName!=null">userName=#{userName},</if>
+			<if test="userPassword!=null">userPassword=#{userPassword},</if>
+			<if test="creationTime!=null">creationTime=#{creationTime},</if>
+			<if test="lastLoginTime!=null">lastLoginTime=#{lastLoginTime},</if>
+			<if test="createdBy!=null">createdBy=#{createdBy},</if>
+			<if test="lastUpdateTime!=null">lastUpdateTime=#{lastUpdateTime},</if>
+			<if test="isStart!=null">isStart=#{isStart},</if>
+			<if test="roleId!=null">roleId=#{roleId}</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="org.agent.pojo.User">
+		delete from as_user where id=#{id}
+	</delete>
+	
+	<select id="count" parameterType="org.agent.pojo.User" resultType="int">
+		select count(1) from as_user
+		<where>
+			<if test="userName!=null">
+				userName like CONCAT('%',#{userName},'%')
+			</if>
+			<if test="userCode!=null">
+				and userCode like CONCAT('%',#{userCode},'%')
+			</if>
+			<if test="roleId!=null">
+				and roleId=#{roleId}
+			</if>
+			<if test="isStart!=null">
+				and isStart=#{isStart}
+			</if>
+		</where>
+	</select>
+	
+	<select id="isExitLoginUser" parameterType="org.agent.pojo.User" resultType="int">
+		select count(1) from as_user where userCode=#{userCode}
+	</select>
+	
+</mapper>

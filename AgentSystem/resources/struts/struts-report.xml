@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="report" namespace="/" extends="global">
+		<action name="report" class="org.agent.action.ReportAction" method="report">
+			<result name="success">/WEB-INF/pages/report.jsp</result>
+		</action>
+		<action name="reportaccount" class="org.agent.action.ReportAction" method="reportFile"></action>
+		<action name="reportaccounte" class="org.agent.action.ReportAction" method="reportFileExcel"></action>
+		<action name="reportyfkpdf" class="org.agent.action.ReportAction" method="reportYfkpdf"></action>
+		<action name="reportyfkxls" class="org.agent.action.ReportAction" method="reportYfkxls"></action>
+		<action name="reportdlspdf" class="org.agent.action.ReportAction" method="reportDlspdf"></action>
+		<action name="reportdlsxls" class="org.agent.action.ReportAction" method="reportDlsxls"></action>
+		<action name="reportproductpdf" class="org.agent.action.ReportAction" method="reportProductpdf"></action>
+		<action name="reportproductxls" class="org.agent.action.ReportAction" method="reportProductxls"></action>
+	</package>
+</struts>

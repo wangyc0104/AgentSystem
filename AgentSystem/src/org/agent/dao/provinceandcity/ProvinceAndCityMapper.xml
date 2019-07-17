@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.agent.dao.provinceandcity.ProvinceAndCityMapper">
+	<!-- 
+	public List<Province> getProvinceList();
+	public List<City> getCitys(Province province);
+	public List<Area> getAreas(City city);
+	public String getProvinceNameById();
+	public String getCityNameById();
+	public String getAreaNameById();
+ 	-->
+	<select id="getProvinceList" resultType="org.agent.pojo.Province">
+		select * from hat_province
+	</select>
+	
+	<select id="getCitys" parameterType="org.agent.pojo.Province" resultType="org.agent.pojo.City">
+		select * from hat_city
+		<where>
+			father=#{provinceID}
+		</where>
+	</select>
+	
+	<select id="getAreas" parameterType="org.agent.pojo.City" resultType="org.agent.pojo.Area">
+		select * from hat_area
+		<where>
+			father=#{cityID}
+		</where>
+	</select>
+
+	<select id="getProvinceById" parameterType="org.agent.pojo.Province" resultType="org.agent.pojo.Province">
+		select * from hat_province where provinceID=#{provinceID}
+	</select>
+
+	<select id="getCityById" parameterType="org.agent.pojo.City" resultType="org.agent.pojo.City">
+		select * from hat_city where cityID=#{cityID}
+	</select>
+
+	<select id="getAreaById" parameterType="org.agent.pojo.Area" resultType="org.agent.pojo.Area">
+		select * from hat_area where areaID=#{areaID}
+	</select>
+	
+</mapper>

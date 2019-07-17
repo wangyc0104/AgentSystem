@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.report.ReportMapper">
+	<select id="accountBalance" parameterType="org.agent.pojo.Account" resultType="org.agent.pojo.Account">
+		select a.*, b.userName from as_account as a, as_user as b where a.userId=b.id
+	</select>
+	<select id="reportProduct" parameterType="org.agent.pojo.ReportProduct" resultType="org.agent.pojo.ReportProduct">
+		select count(1) as number, sum(price) as price, configTypeName from as_keywords, as_systemconfig
+		where as_keywords.productType=as_systemconfig.id
+		<if test="startTime!=null">
+			and as_keywords.regDatetime>=#{startTime}
+		</if>
+		<if test="endTime!=null">
+			and #{endTime}>=as_keywords.regDatetime
+		</if>
+		GROUP BY productType
+	</select>
+</mapper>

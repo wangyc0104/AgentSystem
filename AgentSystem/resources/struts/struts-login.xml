@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="login" namespace="/" extends="global">
+		<action name="login" class="org.agent.action.LoginAction" method="login">
+			<result name="success" type="redirectAction">main</result>
+			<result name="input">/WEB-INF/pages/login.jsp</result>
+		</action>
+		<action name="validateLoginUser" class="org.agent.action.LoginAction" method="checkUser"></action>
+		<action name="main" class="org.agent.action.LoginAction" method="main">
+			<result name="success">/WEB-INF/pages/main.jsp</result>
+			<interceptor-ref name="adminInterceptor"></interceptor-ref>
+		</action>
+		<action name="modifypwd" class="org.agent.action.LoginAction" method="modifyPwd">
+			<interceptor-ref name="adminInterceptor"></interceptor-ref>
+		</action>
+		<action name="exit" class="org.agent.action.LoginAction" method="exit">
+			<result name="success" type="redirectAction">login</result>
+		</action>
+	</package>
+</struts>

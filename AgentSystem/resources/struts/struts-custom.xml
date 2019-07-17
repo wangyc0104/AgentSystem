@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="custom" namespace="/" extends="admin">
+		<action name="customlist" class="org.agent.action.CustomAction" method="customList">
+			<result>/WEB-INF/pages/customlist.jsp</result>
+		</action>
+		<action name="addcustom" class="org.agent.action.CustomAction">
+			<result>/WEB-INF/pages/addcustom.jsp</result>
+		</action>
+		<action name="loadcity" class="org.agent.action.CustomAction" method="loadCity"></action>
+		<action name="loadarea" class="org.agent.action.CustomAction" method="loadArea"></action>
+		<action name="isexistcustomname" class="org.agent.action.CustomAction" method="isExistCustomName"></action>
+		<action name="addsavecustom" class="org.agent.action.CustomAction" method="addCustom">
+			<result type="redirectAction">customlist</result>
+			<result name="input">/WEB-INF/pages/addcustom.jsp</result>
+		</action>
+		<action name="viewcustom" class="org.agent.action.CustomAction" method="viewCustom">
+			<result>/WEB-INF/pages/viewcustom.jsp</result>
+		</action>
+		<!-- 显示修改客户页面 -->
+		<action name="modifycustom" class="org.agent.action.CustomAction" method="modifyCustom">
+			<result>/WEB-INF/pages/modifycustom.jsp</result>
+		</action>
+		<!-- 提交修改请求 -->
+		<action name="modifysavecustom" class="org.agent.action.CustomAction" method="modifySaveCustom">
+			<result>/WEB-INF/pages/customlist.jsp</result>
+			<result name="input">/WEB-INF/pages/modifycustom.jsp</result>
+		</action>
+		<!-- 修改用户状态 -->
+		<action name="modifycustomstatus" class="org.agent.action.CustomAction" method="modifyCustomStatus">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="function" namespace="/" extends="admin">
+		<action name="permission" class="org.agent.action.FunctionAction" method="roleList">
+			<result>/WEB-INF/pages/permission.jsp</result>
+		</action>
+		<action name="funclist" class="org.agent.action.FunctionAction" method="funcList">
+			<result>/WEB-INF/pages/functionlist.jsp</result>
+		</action>
+		<action name="saverolefunc" class="org.agent.action.FunctionAction" method="saveRoleFunc"></action>
+	</package>
+</struts>

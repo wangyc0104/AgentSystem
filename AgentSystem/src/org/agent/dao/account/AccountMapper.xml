@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.account.AccountMapper">
+	
+	<!-- 
+	public List<Account> getAccountList(Account account);
+	public Account getAccount(Account account);
+	public int addAccount (Account account);
+	public int modifyAccount(Account account);
+	public int deleteAccount(Account account);
+	 -->
+	<select id="getAccountList" resultType="org.agent.pojo.Account">
+		select * from as_account
+	</select>
+	
+	<select id="getAccount" parameterType="org.agent.pojo.Account" resultType="org.agent.pojo.Account">
+		select * from as_account where userId=#{userId} and money=moneyBak
+	</select>
+	
+	<insert id="addAccount" parameterType="org.agent.pojo.Account">
+		insert into as_account(userId, money, moneyBak) values(#{userId}, #{money}, #{moneyBak})
+	</insert>	
+	
+	<update id="modifyAccount" parameterType="org.agent.pojo.Account">
+		update as_account
+		<set>
+			<if test="money!=null">money=#{money},</if>
+			<if test="moneyBak!=null">moneyBak=#{moneyBak}</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	
+	<delete id="deleteAccount" parameterType="org.agent.pojo.Account">
+		delete from as_account where userId=#{userId}
+	</delete>
+</mapper>

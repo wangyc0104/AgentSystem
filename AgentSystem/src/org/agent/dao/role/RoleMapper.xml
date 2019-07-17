@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.role.RoleMapper">
+	
+	<select id="getRoleList" resultType="org.agent.pojo.Role">
+		select * from as_role
+	</select>
+	
+	<!-- getRole,返回查询到的第一个值 -->
+	<select id="getRole" parameterType="org.agent.pojo.Role" resultType="org.agent.pojo.Role">
+		select * from as_role
+		<where>
+			<if test="id!=null"> and id=#{id}</if>
+			<if test="roleName!=null"> and roleName=#{roleName}</if>
+		</where>
+	</select>
+	
+	<insert id="addRole" parameterType="org.agent.pojo.Role">
+		insert into as_role(roleName, creationTime, createdBy, lastUpdateTime, isStart)
+		values(#{roleName}, #{creationTime}, #{createdBy}, #{lastUpdateTime}, #{isStart})
+	</insert>
+	
+	<update id="modifyRole" parameterType="org.agent.pojo.Role">
+		update as_role
+		<set>
+			<if test="roleName!=null">roleName=#{roleName},</if>
+			<if test="lastUpdateTime!=null">lastUpdateTime=#{lastUpdateTime},</if>
+			<if test="isStart!=null">isStart=#{isStart}</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteRole" parameterType="org.agent.pojo.Role">
+		delete from as_role where id=#{id}
+	</delete>
+	
+	<!-- 数据库里面的属性名和对象里的属性名字不一样时可以用这个方法，但建议属性和数据库里一一对应
+	<resultMap type="org.agent.pojo.Role" id="myRole">
+		<result property="roleName1" column="roleName"/>
+	</resultMap>
+	<select id="getRoleIdAndNameList" resultMap="myRole">
+		select id, roleName from as_role where isStart=1
+	</select>
+	 -->
+	<select id="getRoleIdAndNameList" resultType="org.agent.pojo.Role">
+		select id, roleName from as_role where isStart=1
+	</select>
+	
+</mapper>

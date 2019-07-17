@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="user" namespace="/" extends="global">
+		<action name="userlist" class="org.agent.action.UserAction" method="userList">
+			<result name="success">/WEB-INF/pages/userlist.jsp</result>
+		</action>
+		<action name="edituser" class="org.agent.action.UserAction" method="editUser"></action>
+		<action name="deluser" class="org.agent.action.UserAction" method="delUser"></action>
+		<action name="loglist" class="org.agent.action.LogAction" method="logList">
+			<result name="success">/WEB-INF/pages/loglist.jsp</result>
+		</action>
+		<action name="yfklist" class="org.agent.action.AccountAction" method="yfk">
+			<result name="success">/WEB-INF/pages/yfklist.jsp</result>
+		</action>
+	</package>
+</struts>

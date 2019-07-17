@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.agent.dao.logs.LogsMapper">
+	<!-- 
+	public List<Logs> getList(Logs logs);
+	public int addLogs(Logs logs);
+	public int count(Logs logs);
+	 -->
+	
+	<select id="getList" parameterType="org.agent.pojo.Logs" resultType="org.agent.pojo.Logs">
+		select * from as_logs
+		<where>
+			<if test="userId!=null">
+				and userId = #{userId}
+			</if>
+			<if test="operateDatetime!=null">
+				and operateDatetime like CONCAT('%', #{odt}, '%')
+			</if>
+		</where>
+		order by operateDatetime desc
+		<if test="startNum!=null and pageSize!=null">
+			limit #{startNum}, #{pageSize}
+		</if>
+	</select>
+	
+	<insert id="addLogs" parameterType="org.agent.pojo.Logs">
+		insert into as_logs(userId, userName, operateInfo, operateDatetime)
+		values(#{userId}, #{userName}, #{operateInfo}, #{operateDatetime})
+	</insert>
+	
+	<select id="count" parameterType="org.agent.pojo.Logs" resultType="int">
+		select count(1) from as_logs
+		<where>
+			<if test="userId!=null">
+				and userId = #{userId}
+			</if>
+			<if test="operateDatetime!=null">
+				and operateDatetime like CONCAT('%', #{odt}, '%')
+			</if>
+		</where>
+	</select>
+
+</mapper>

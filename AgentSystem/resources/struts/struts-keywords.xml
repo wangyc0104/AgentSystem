@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="keywords" namespace="/" extends="admin">
+		<action name="keyword" class="org.agent.action.KeywordAction" method="init">
+			<result>/WEB-INF/pages/keywords.jsp</result>
+		</action>
+		<action name="searchcustom" class="org.agent.action.KeywordAction" method="searchCustom"></action>
+		<action name="valikey" class="org.agent.action.KeywordAction" method="valiKeywords"></action>
+		<action name="jisuan" class="org.agent.action.KeywordAction" method="jisuan"></action>
+		<action name="submitkeyword" class="org.agent.action.KeywordAction" method="submitKeyword"></action>
+		<action name="keywordmanage" class="org.agent.action.KeywordAction" method="keywordManage">
+			<result>/WEB-INF/pages/keywordmanage.jsp</result>
+		</action>
+		<action name="checkkeyword" class="org.agent.action.KeywordAction" method="checkKeyword">
+			<result>/WEB-INF/pages/checkkeyword.jsp</result>
+		</action>
+		<action name="updatekeywords" class="org.agent.action.KeywordAction" method="updateKeywords"></action>
+		<action name="openapp" class="org.agent.action.KeywordAction" method="openApp">
+			<result>/WEB-INF/pages/openapp.jsp</result>
+		</action>
+		<action name="modifyapp" class="org.agent.action.KeywordAction" method="modifyApp">
+			<result>/WEB-INF/pages/openapp.jsp</result>
+		</action>
+		<action name="xufei" class="org.agent.action.KeywordAction" method="keywordsXufei">
+			<result>/WEB-INF/pages/xufei.jsp</result>
+		</action>
+		<action name="keywordsxufei" class="org.agent.action.KeywordAction" method="keywordsXufeiSave"></action>
+		<action name="deletekeyword" class="org.agent.action.KeywordAction" method="deleteKeyword"></action>
+	</package>
+</struts>

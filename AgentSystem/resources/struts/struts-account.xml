@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<package name="account" namespace="/" extends="admin">
+		<action name="caiwu" class="org.agent.action.AccountAction" method="caiwu">
+			<result>/WEB-INF/pages/caiwu.jsp</result>
+		</action>
+		<action name="searchuser" class="org.agent.action.AccountAction" method="searchUser"></action>
+		<action name="opeaccount" class="org.agent.action.AccountAction" method="operateAccount"></action>
+		<action name="accountdetail" class="org.agent.action.AccountAction" method="accountDetailByUserId">
+			<result>/WEB-INF/pages/accountdetail.jsp</result>
+		</action>
+		<action name="account" class="org.agent.action.AccountAction" method="getCurrentUserAccount"></action>
+		<action name="yfk" class="org.agent.action.AccountAction" method="yfk">
+			<result>/WEB-INF/pages/yfk.jsp</result>
+		</action>
+	</package>
+</struts>

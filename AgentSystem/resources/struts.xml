@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<package name="global" namespace="/" extends="struts-default">
+		<!-- 自定义登录验证拦截器 -->
+		<interceptors>
+			<interceptor name="isLoginInterceptor" class="org.agent.interceptor.AdminInterceptor"></interceptor>
+			<interceptor-stack name="adminInterceptor">
+				<interceptor-ref name="isLoginInterceptor"/>
+				<interceptor-ref name="defaultStack"/> <!-- 一定要加上系统默认拦截器，根据不同功能需求添加 -->
+			</interceptor-stack>
+		</interceptors>
+		<!-- 指定全局返回结果 -->
+		<global-results>
+			<result name="login" type="redirectAction">login</result>
+		</global-results>
+		<action name="index">
+			<result>/index.jsp</result>
+		</action>
+	</package>
+	<package name="admin" namespace="/" extends="global">
+		<!-- 指定自定义的拦截器为默认拦截器 -->
+		<default-interceptor-ref name="adminInterceptor"></default-interceptor-ref>
+	</package>
+	
+	<include file="struts/struts-account.xml"></include>
+	<include file="struts/struts-custom.xml"></include>
+	<include file="struts/struts-function.xml"></include>
+	<include file="struts/struts-keywords.xml"></include>
+	<include file="struts/struts-login.xml"></include>
+	<include file="struts/struts-logs.xml"></include>
+	<include file="struts/struts-report.xml"></include>
+	<include file="struts/struts-role.xml"></include>
+	<include file="struts/struts-systemconfig.xml"></include>
+	<include file="struts/struts-user.xml"></include>
+</struts>
